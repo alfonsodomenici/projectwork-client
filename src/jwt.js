@@ -22,4 +22,8 @@ const writeToken = (token) => {
     window.localStorage.setItem("token", token);
 }
 
-export { decodeToken, isTokenValid, writeToken, readToken };
+const removeToken = _ => {
+    window.localStorage.removeItem('token');
+}
+
+export { decodeToken, isTokenValid, writeToken, readToken, removeToken };

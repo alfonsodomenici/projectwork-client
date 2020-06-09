@@ -1,5 +1,7 @@
 import { decodeToken, isTokenValid, readToken } from './jwt.js';
 import PostStore from './PostStore.js';
+import Menu from './Menu.js';
+import {html, render} from './lib/lit-html.js';
 
 const loadPosts = (url) => {
     store.all()
@@ -34,53 +36,40 @@ const onDeletePost = (e, id) => {
 
 const renderPosts = (data) => {
     const sectionEl = document.querySelector('section');
-    const markup = `
+    const markup = html`
         <hr/>
-        ${data.map(post => renderPost(post)).join('<hr/>')}
+        ${data.map(post => renderPost(post))}
     `;
-    sectionEl.innerHTML = markup;
-    attachDownload();
-    attachDelete();
+    render(markup,sectionEl);
 }
 
 const renderPost = (post) => {
-    return `
+    console.log(post.documents.length);
+    return html`
         <div>
             <h3>${post.title}</h3>
             <p>${post.body}</p> 
             <h4>Documenti</h4>
             <ul>
-                ${post.documents.map(doc => renderDocument(doc, post.id)).join('')}
+                 ${post.documents && post.documents.length > 0 ? 
+                    post.documents.map(doc => renderDocument(doc, post.id))
+                    : html`<p>Nessun documento presente</p>`}
             </ul>
             <a href="postCrud.html?id=${post.id}">modifica</a>
-            <a href="#" data-type="delete" data-post-id="${post.id}">elimina</a>
+            <a href="#" @click=${e => onDeletePost(e,post.id)}>elimina</a>
         </div>
+        <hr/>
     `;
 }
 
 const renderDocument = (doc, postId) => {
-    return `
+    return html`
         <li>
             <p>${doc.title}</p>
-            <a href="#" data-type="download" data-doc-id="${doc.id}" data-post-id="${postId}">${doc.file}</a>
+            <a href="#" @click=${e => onDocumentDownload(e,doc.id,postId)}>${doc.file}</a>
         </li>
     `;
 }
-
-const attachDownload = () => {
-    const elements = document.querySelectorAll("[data-type='download']");
-    elements.forEach(el => {
-        el.addEventListener("click", e => onDocumentDownload(e, el.dataset.docId, el.dataset.postId));
-    })
-}
-
-const attachDelete = () => {
-    const elements = document.querySelectorAll("[data-type='delete']");
-    elements.forEach(el => {
-        el.addEventListener("click", e => onDeletePost(e, el.dataset.postId));
-    })
-}
-
 
 if (!isTokenValid()) {
     window.location.href = "login.html";

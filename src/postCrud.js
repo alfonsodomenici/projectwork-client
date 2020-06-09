@@ -1,5 +1,7 @@
 import { isTokenValid, decodeToken, readToken } from "./jwt.js";
 import PostStore from './PostStore.js';
+import Menu from './Menu.js';
+import {html, render} from './lib/lit-html.js';
 
 const loadPost = () => {
     store.find(id)
@@ -15,41 +17,26 @@ const loadPost = () => {
 const renderDocuments = () => {
     const sectionEl = document.querySelector("section");
 
-    const markup = `
+    const markup = html`
         <header>
             <h3>Documenti</h3>
         </header>
-        ${postToEdit !== null ? postToEdit.documents.filter(doc => !doc.todelete).map(doc => renderDocument(doc)).join('<hr/>') : ''}
-        ${documentsToUpload.map(doc => renderDocument(doc)).join('<hr/>')}
+        ${postToEdit !== null ? postToEdit.documents.filter(doc => !doc.todelete).map(doc => renderDocument(doc)) : ''}
+        ${documentsToUpload.map(doc => renderDocument(doc))}
     `;
-    sectionEl.innerHTML = markup;
-    attachDownload();
-    attachDelete();
+    render(markup,sectionEl);
 }
 
 const renderDocument = (doc) => {
-    return `
+    return html`
         <div>
             <p>${doc.title}</p>
-            <a href="#" data-type="download" data-doc-id="${doc.id}">${doc.file}</a>
-            <a href="#" data-type="delete" data-doc-id="${doc.id}">elimina</a>
+            <a href="#" @click=${e => onDocumentDownload(e,doc.id)}>${doc.file}</a>
+            <a href="#" @click=${e => onDocumentDelete(e,doc.id)}>elimina</a>
         </div>
     `;
 }
 
-const attachDownload = () => {
-    const elements = document.querySelectorAll("[data-type='download']");
-    elements.forEach(el => {
-        el.addEventListener("click", e => onDocumentDownload(e, parseInt(el.dataset.docId)));
-    })
-}
-
-const attachDelete = () => {
-    const elements = document.querySelectorAll("[data-type='delete']");
-    elements.forEach(el => {
-        el.addEventListener("click", e => onDocumentDelete(e, parseInt(el.dataset.docId)));
-    })
-}
 const oncreate = (e) => {
     e.preventDefault();
     const post = {
@@ -73,9 +60,9 @@ const onsave = (e) => {
     postToEdit.title = titleEl.value;
     postToEdit.body = bodyEl.value;
     postToEdit.endDate = endDateEl.value;
+    console.log(postToEdit);
     store.update(postToEdit)
         .then(json => {
-            console.log(json);
             const documentsToDelete = postToEdit.documents ? postToEdit.documents.filter(doc => doc.todelete) : [];
             return store.updateDocuments(id, documentsToUpload, documentsToDelete)
         })

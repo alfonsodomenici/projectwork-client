@@ -1,5 +1,6 @@
 import { writeToken } from "./jwt.js";
 import AuthenticationStore from './AuthenticationStore.js';
+import Menu from './Menu.js';
 
 const onlogin = (e) => {
     e.preventDefault();

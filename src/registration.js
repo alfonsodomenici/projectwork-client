@@ -1,4 +1,5 @@
 import UserStore from './UserStore.js';
+import Menu from './Menu.js';
 
 const onsave = (e) => {
     console.log('onsave');
