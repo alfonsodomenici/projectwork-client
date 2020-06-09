@@ -36,11 +36,11 @@ const onDeletePost = (e, id) => {
 
 const renderPosts = (data) => {
     const sectionEl = document.querySelector('section');
-    const markup = html`
+    const template = html`
         <hr/>
         ${data.map(post => renderPost(post))}
     `;
-    render(markup,sectionEl);
+    render(template,sectionEl);
 }
 
 const renderPost = (post) => {

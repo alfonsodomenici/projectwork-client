@@ -17,14 +17,12 @@ const loadPost = () => {
 const renderDocuments = () => {
     const sectionEl = document.querySelector("section");
 
-    const markup = html`
-        <header>
-            <h3>Documenti</h3>
-        </header>
+    const template = html`
+        <h3>Documenti</h3>
         ${postToEdit !== null ? postToEdit.documents.filter(doc => !doc.todelete).map(doc => renderDocument(doc)) : ''}
         ${documentsToUpload.map(doc => renderDocument(doc))}
     `;
-    render(markup,sectionEl);
+    render(template,sectionEl);
 }
 
 const renderDocument = (doc) => {
