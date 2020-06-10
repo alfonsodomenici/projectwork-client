@@ -19,11 +19,9 @@ export default class Menu extends HTMLElement{
 
     createView(){
         return html`
-            <nav>
                 <ul>
                     ${isTokenValid() ? this.renderPrivateMenu() : this.renderPublicMenu()}
                 </ul>
-            </nav>
         `;
     }
 
