@@ -35,7 +35,7 @@ const onDeletePost = (e, id) => {
 }
 
 const renderPosts = (data) => {
-    const sectionEl = document.querySelector('section');
+    const sectionEl = document.querySelector('article');
     const template = html`
         <hr/>
         ${data.map(post => renderPost(post))}

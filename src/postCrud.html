@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Crud</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Blog Posts App</title>
 </head>
+
 <body>
     <main>
+        <header>
+            <p>Blog Posts App</p>
+        </header>
         <nav>
             <pw-menu></pw-menu>
         </nav>
-        <h1>Crea/Modifica Post</h1>
-        <form action="#" id="postForm">
-            <input type="text" name="title" id="title" placeholder="titolo">
-            <input type="text" name="body" id="body" placeholder="testo">
-            <input type="date" name="endDate" id="endDate" placeholder="scadenza">
-            <input type="submit" value="Salva">
-        </form>
-        <section>
+        <section class="view">
+            <h1>Crea/Modifica Post</h1>
+            <form action="#" id="postForm">
+                <input type="text" name="title" id="title" placeholder="titolo">
+                <input type="text" name="body" id="body" placeholder="testo">
+                <input type="date" name="endDate" id="endDate" placeholder="scadenza">
+                <input type="submit" value="Salva">
+            </form>
+            <article>
 
+            </article>
+            <h3>Aggiungi documento</h3>
+            <form id="documentForm">
+                <input type="file" name="file" id="file" required>
+                <input type="submit" value="carica">
+            </form>
         </section>
-        <h3>Aggiungi documento</h3>
-        <form id="documentForm">
-            <input type="file" name="file" id="file" required>
-            <input type="submit" value="carica">
-        </form>
+        <footer>
+            <p>powered by TSS 2020</p>
+        </footer>
     </main>
     <script src="postCrud.js" type="module"></script>
 </body>
+
 </html>

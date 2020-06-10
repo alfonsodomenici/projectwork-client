@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrati</title>
     <link rel="stylesheet" href="style.css">
+    <title>Blog Posts App</title>
 </head>
 <body>
     <main>
-        <nav>
-            <pw-menu></pw-menu>
+        <header>
+            <p>Blog Posts App</p>
+        </header>
+        <nav >
+            <pw-menu ></pw-menu>
         </nav>
-        <section>
+        <section class="view">
             <h1>Registrati</h1>
             <form action="#" method="POST">
                 <input type="text" name="firstName" id="firstName" placeholder="nome" required>
@@ -22,8 +25,10 @@
                 <input type="submit" value="Salva" >
             </form>
         </section>
+        <footer>
+            <p>powered by TSS 2020</p>
+        </footer>
     </main>
-    
     <script src="registration.js" type="module"></script>
 </body>
 </html>

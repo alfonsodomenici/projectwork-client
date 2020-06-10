@@ -15,7 +15,7 @@ const loadPost = () => {
 }
 
 const renderDocuments = () => {
-    const sectionEl = document.querySelector("section");
+    const sectionEl = document.querySelector("article");
 
     const template = html`
         <h3>Documenti</h3>

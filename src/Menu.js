@@ -29,6 +29,7 @@ export default class Menu extends HTMLElement{
 
     renderPrivateMenu(){
         return html`
+            <li><a href = "index.html">home</a></li>
             <li><a href = "posts.html">posts</a></li>
             <li><a href = "postCrud.html">nuovo</a></li>
             <li><a @click=${e => this.onLogout(e)} href = "#" >logout</a></li>
